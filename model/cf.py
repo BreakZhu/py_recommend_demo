@@ -6,7 +6,7 @@ import pandas as pd
 class UserCf:
 
     def __init__(self):
-        self.file_path = 'D:\\recommend_data\\user\\user_follows.csv'
+        self.file_path = 'data/user/user_follows.csv'
         self._init_frame()
 
     def _init_frame(self):
@@ -14,12 +14,12 @@ class UserCf:
 
     @staticmethod
     def _cosine_sim(target_movies, movies):
-        '''
+        """
         simple method for calculate cosine distance.
         e.g: x = [1 0 1 1 0], y = [0 1 1 0 1]
              cosine = (x1*y1+x2*y2+...) / [sqrt(x1^2+x2^2+...)+sqrt(y1^2+y2^2+...)]
              that means union_len(movies1, movies2) / sqrt(len(movies1)*len(movies2))
-        '''
+        """
         union_len = len(set(target_movies) & set(movies))
         if union_len == 0:
             return 0.0
@@ -28,9 +28,9 @@ class UserCf:
         return cosine
 
     def _get_top_n_users(self, target_user_id, top_n):
-        '''
+        """
         calculate similarity between all users and return Top N similar users.
-        '''
+        """
         target_movies = self.frame[self.frame['user'] == target_user_id]['item']
         other_users_id = [i for i in set(self.frame['user']) if i != target_user_id]
         other_movies = [self.frame[self.frame['user'] == i]['item'] for i in other_users_id]
@@ -59,7 +59,7 @@ class UserCf:
             tmp = []
             for user_data in top_n_user_data:
                 if movie_id in user_data['item'].values:
-                    tmp.append(user_data[user_data['item'] == movie_id]['status'].values[0]/5)
+                    tmp.append((5-(user_data[user_data['item'] == movie_id]['status'].values[0]))/5)
                 else:
                     tmp.append(0)
             interest = sum([top_n_users[i][1] * tmp[i] for i in range(len(top_n_users))])
@@ -67,7 +67,7 @@ class UserCf:
         interest_list = sorted(interest_list, key=lambda x: x[1], reverse=True)
         return interest_list[:top_n]
 
-    def calculate(self, target_user_id=1, top_n=10):
+    def calculate(self, target_user_id, top_n=10):
         """
         user-cf for movies recommendation.
         """

@@ -12,7 +12,7 @@ class Corpus:
 
     @classmethod
     def pre_process(cls):
-        file_path = 'D:\\recommend_data\\user\\user_follows.csv'
+        file_path = 'data/user/user_follows.csv'
         cls.frame = pd.read_csv(file_path)
         cls.user_ids = set(cls.frame['user'].values)
         cls.item_ids = set(cls.frame['item'].values)
@@ -68,7 +68,7 @@ class LFM:
         """
         Get corpus and initialize model params.
         """
-        file_path = 'D:\\recommend_data\\user\\user_follows.csv'
+        file_path = 'data/user/user_follows.csv'
         self.frame = pd.read_csv(file_path)
         self.user_ids = set(self.frame['user'].values)
         self.item_ids = set(self.frame['item'].values)

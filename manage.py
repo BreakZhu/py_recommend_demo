@@ -11,11 +11,11 @@ def manage(arg):
     if arg == 'preprocess':
         Channel().process()
     elif arg == 'cf':
-        user_cf()
+        user_cf(2073000)
     elif arg == 'lfm':
-        lfm()
+        lfm(2073000)
     elif arg == 'prank':
-        prank()
+        prank(2073000)
     else:
         print('Args must in ["preprocess", "cf", "lfm"，"prank"].')
     sys.exit()
@@ -23,4 +23,5 @@ def manage(arg):
 
 if __name__ == '__main__':
     # manage('prank')
-    manage('lfm')
+    # manage('lfm')
+    manage('cf')

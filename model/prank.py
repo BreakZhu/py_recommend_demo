@@ -41,7 +41,7 @@ class Graph:
         构建图
         初始化二分图
         """
-        file_path = 'D:\\recommend_data\\user\\user_follows.csv'
+        file_path = 'data/user/user_follows.csv'
         cls.frame = pd.read_csv(file_path)
         user_ids = list(set(cls.frame['user']))
         item_ids = list(set(cls.frame['item']))
@@ -111,7 +111,7 @@ class PersonalRank:
         Return top n node without movie target user have been rated and other user.
         """
         self.load(user_id)
-        frame = pd.read_csv('D:\\recommend_data\\user\\user_follows.csv')
+        frame = pd.read_csv('data/user/user_follows.csv')
         item_ids = ['item_' + str(item_id) for item_id in list(set(frame[frame['user'] == user_id]['item']))]
         candidates = [(key, value) for key, value in self.params if key not in item_ids and 'user' not in key]
         return candidates[:top_n]
@@ -122,6 +122,6 @@ class PersonalRank:
         f.close()
 
     def load(self, user_id):
-        f = open('data/prank_{}.model'.format(user_id), 'rb')
+        f = open('data/prank_model/prank_{}.model'.format(user_id), 'rb')
         self.params = pickle.load(f)
         f.close()

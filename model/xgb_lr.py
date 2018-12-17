@@ -1,12 +1,11 @@
-import xgboost as xgb
-from sklearn.datasets import load_svmlight_file
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import roc_curve, auc, roc_auc_score
-from sklearn.externals import joblib
-from sklearn.preprocessing import OneHotEncoder
 import numpy as np
+import xgboost as xgb
 from scipy.sparse import hstack
+from sklearn.datasets import load_svmlight_file
+from sklearn.externals import joblib
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import roc_auc_score
+from sklearn.model_selection import train_test_split
 
 
 def xgb_feature_encode(libsvmFileNameInitial):
@@ -93,7 +92,7 @@ def xgboost_lr_train(xgbfeaturefile, origin_libsvm_file):
     # lr 对原始特征样本模型训练
     lr = LogisticRegression(n_jobs=-1, C=0.1, penalty='l1')
     lr.fit(X_train_origin, y_train_origin)
-    joblib.dump(lr, 'lr_orgin.m')
+    joblib.dump(lr, 'map_data/lr_orgin.m')
     # 预测及 AUC 评测
     y_pred_test = lr.predict_proba(X_test_origin)[:, 1]
     lr_test_auc = roc_auc_score(y_test_origin, y_pred_test)
@@ -102,7 +101,7 @@ def xgboost_lr_train(xgbfeaturefile, origin_libsvm_file):
     # lr 对 load xgboost 特征编码后的样本模型训练
     lr = LogisticRegression(n_jobs=-1, C=0.1, penalty='l1')
     lr.fit(X_train, y_train)
-    joblib.dump(lr, 'lr_xgb.m')
+    joblib.dump(lr, 'map_data/lr_xgb.m')
     # 预测及 AUC 评测
     y_pred_test = lr.predict_proba(X_test)[:, 1]
     lr_test_auc = roc_auc_score(y_test, y_pred_test)
@@ -119,7 +118,7 @@ def xgboost_lr_train(xgbfeaturefile, origin_libsvm_file):
     # lr 对组合后的新特征的样本进行模型训练
     lr = LogisticRegression(n_jobs=-1, C=0.1, penalty='l1')
     lr.fit(X_train_ext, y_train)
-    joblib.dump(lr, 'lr_ext.m')
+    joblib.dump(lr, 'map_data/lr_ext.m')
     # 预测及 AUC 评测
     y_pred_test = lr.predict_proba(X_test_ext)[:, 1]
     lr_test_auc = roc_auc_score(y_test, y_pred_test)
