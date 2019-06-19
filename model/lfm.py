@@ -37,8 +37,10 @@ class Corpus:
         # 取出用户大小的ids
         neg_item_ids = list(neg_item_ids)[:len(pos_item_ids)]
         item_dict = {}
-        for item in pos_item_ids: item_dict[item] = 1
-        for item in neg_item_ids: item_dict[item] = 0
+        for item in pos_item_ids:
+            item_dict[item] = 1
+        for item in neg_item_ids:
+            item_dict[item] = 0
         return item_dict
 
     @classmethod
@@ -59,7 +61,7 @@ class LFM:
 
     def __init__(self):
         self.class_count = 5
-        self.iter_count = 5
+        self.iter_count = 10
         self.lr = 0.02
         self.lam = 0.01
         self._init_model()

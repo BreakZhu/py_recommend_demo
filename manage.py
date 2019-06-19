@@ -13,7 +13,7 @@ def manage(arg):
     elif arg == 'cf':
         user_cf(2073000)
     elif arg == 'lfm':
-        lfm(2073000)
+        lfm()
     elif arg == 'prank':
         prank(2073000)
     else:
@@ -24,4 +24,4 @@ def manage(arg):
 if __name__ == '__main__':
     # manage('prank')
     # manage('lfm')
-    manage('cf')
+    manage('lfm')
